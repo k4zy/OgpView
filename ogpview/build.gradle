@@ -15,4 +15,5 @@ android {
 dependencies {
     compile 'com.facebook.fresco:fresco:1.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'org.jsoup:jsoup:1.7.2'
 }
