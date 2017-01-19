@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:minHeight="150dp"
+    android:background="@drawable/ogp_background"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/favicon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="4dp"
+                fresco:roundedCornerRadius="1dp" />
+
+            <TextView
+                android:id="@+id/site_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="site_title"
+                android:textColor="#9e9ea6" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/og_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Open Graph protocol"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/og_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="6"
+            android:ellipsize="end"
+            android:text="The Open Graph protocol enables any web page to become a rich object in a social graph." />
+
+    </LinearLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/og_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        fresco:roundedCornerRadius="1dp" />
+
+</LinearLayout>
