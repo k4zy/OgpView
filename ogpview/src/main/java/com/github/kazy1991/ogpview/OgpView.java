@@ -23,6 +23,12 @@ import okhttp3.Response;
 
 public class OgpView extends FrameLayout {
 
+    private static OkHttpClient client = new OkHttpClient().newBuilder()
+            .readTimeout(15 * 1000, TimeUnit.MILLISECONDS)
+            .writeTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+            .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
+            .build();
+
     public OgpView(Context context) {
         this(context, null);
     }
@@ -40,12 +46,6 @@ public class OgpView extends FrameLayout {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
-                .build();
-
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .readTimeout(15 * 1000, TimeUnit.MILLISECONDS)
-                .writeTimeout(20 * 1000, TimeUnit.MILLISECONDS)
-                .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
