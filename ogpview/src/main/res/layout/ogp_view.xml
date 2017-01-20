@@ -3,8 +3,8 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:minHeight="150dp"
     android:background="@drawable/ogp_background"
+    android:minHeight="150dp"
     android:orientation="horizontal"
     android:paddingBottom="10dp"
     android:paddingLeft="10dp"
@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -36,6 +36,7 @@
                 android:id="@+id/site_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lines="1"
                 android:text="site_title"
                 android:textColor="#9e9ea6" />
         </LinearLayout>
@@ -46,14 +47,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="Open Graph protocol"
+            android:textColor="#2c2d30"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/og_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="6"
             android:ellipsize="end"
+            android:lines="4"
             android:text="The Open Graph protocol enables any web page to become a rich object in a social graph." />
 
     </LinearLayout>
@@ -62,6 +64,6 @@
         android:id="@+id/og_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        fresco:roundedCornerRadius="1dp" />
+        fresco:roundedCornerRadius="4dp" />
 
 </LinearLayout>

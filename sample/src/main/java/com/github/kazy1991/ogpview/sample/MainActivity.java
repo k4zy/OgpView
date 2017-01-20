@@ -11,6 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((OgpView) findViewById(R.id.ogp_view)).loadUrl("http://ogp.me/");
+        ((OgpView) findViewById(R.id.ogp_view)).loadUrl("https://github.com/vanniktech/OnActivityResult");
     }
 }

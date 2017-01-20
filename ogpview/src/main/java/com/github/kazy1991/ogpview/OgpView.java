@@ -22,6 +22,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class OgpView extends FrameLayout {
+
+    public OgpView(Context context) {
+        this(context, null);
+    }
+
     public OgpView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -29,11 +34,9 @@ public class OgpView extends FrameLayout {
 
     private void init() {
         View.inflate(getContext(), R.layout.ogp_view, this);
-        ((SimpleDraweeView) findViewById(R.id.favicon)).setImageURI("http://ogp.me/logo.png");
-        ((SimpleDraweeView) findViewById(R.id.og_image)).setImageURI("http://ogp.me/logo.png");
     }
 
-    public void loadUrl(String url) {
+    public void loadUrl(final String url) {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -56,7 +59,7 @@ public class OgpView extends FrameLayout {
                 try {
                     String html = response.body().string();
                     Document document = Jsoup.parse(html);
-                    final String title = document.title();
+                    final String title = document.select("meta[property=og:site_name]").attr("content");
                     final String ogTitle = document.select("meta[property=og:title]").attr("content");
                     final String ogImage = document.select("meta[property=og:image]").attr("content");
                     final String ogDescription = document.select("meta[property=og:description]").attr("content");
@@ -66,7 +69,7 @@ public class OgpView extends FrameLayout {
                             ((TextView) findViewById(R.id.site_title)).setText(title);
                             ((TextView) findViewById(R.id.og_title)).setText(ogTitle);
                             ((TextView) findViewById(R.id.og_description)).setText(ogDescription);
-                            ((SimpleDraweeView) findViewById(R.id.favicon)).setImageURI(ogImage);
+                            ((SimpleDraweeView) findViewById(R.id.favicon)).setImageURI("https://www.google.com/s2/favicons?domain=" + url);
                             ((SimpleDraweeView) findViewById(R.id.og_image)).setImageURI(ogImage);
                         }
                     });
