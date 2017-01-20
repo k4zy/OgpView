@@ -29,6 +29,12 @@ public class OgpView extends FrameLayout {
             .connectTimeout(20 * 1000, TimeUnit.MILLISECONDS)
             .build();
 
+    public interface OnClickListener {
+        void onClick(View view, String url);
+    }
+
+    private String url;
+
     public OgpView(Context context) {
         this(context, null);
     }
@@ -38,11 +44,25 @@ public class OgpView extends FrameLayout {
         init();
     }
 
+    public void setOnClickListener(final OnClickListener onClickListener) {
+        if (onClickListener == null) {
+            return;
+        }
+        setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(v, url);
+            }
+        });
+    }
+
     private void init() {
+        setVisibility(GONE);
         View.inflate(getContext(), R.layout.ogp_view, this);
     }
 
     public void loadUrl(final String url) {
+        this.url = url;
         Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -51,7 +71,7 @@ public class OgpView extends FrameLayout {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                // todo: error handling
             }
 
             @Override
@@ -59,6 +79,12 @@ public class OgpView extends FrameLayout {
                 try {
                     String html = response.body().string();
                     Document document = Jsoup.parse(html);
+
+                    // todo: fix condition
+                    if (document.select("meta[property=og:site_name]") != null && document.select("meta[property=og:site_name]").attr("content").equals("")) {
+                        return;
+                    }
+
                     final String title = document.select("meta[property=og:site_name]").attr("content");
                     final String ogTitle = document.select("meta[property=og:title]").attr("content");
                     final String ogImage = document.select("meta[property=og:image]").attr("content");
@@ -71,6 +97,7 @@ public class OgpView extends FrameLayout {
                             ((TextView) findViewById(R.id.og_description)).setText(ogDescription);
                             ((SimpleDraweeView) findViewById(R.id.favicon)).setImageURI("https://www.google.com/s2/favicons?domain=" + url);
                             ((SimpleDraweeView) findViewById(R.id.og_image)).setImageURI(ogImage);
+                            setVisibility(VISIBLE);
                         }
                     });
                 } catch (IOException e) {
