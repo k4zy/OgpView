@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginRight="6dp"
             android:text="Open Graph protocol"
             android:textColor="#2c2d30"
             android:textStyle="bold" />
