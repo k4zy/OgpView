@@ -72,7 +72,12 @@ public class OgpView extends FrameLayout {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                setVisibility(GONE);
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setVisibility(GONE);
+                    }
+                });
                 // todo: error handling
             }
 
@@ -84,7 +89,12 @@ public class OgpView extends FrameLayout {
 
                     // todo: fix condition
                     if (document.select("meta[property=og:site_name]") != null && document.select("meta[property=og:site_name]").attr("content").equals("")) {
-                        setVisibility(GONE);
+                        post(new Runnable() {
+                            @Override
+                            public void run() {
+                                setVisibility(GONE);
+                            }
+                        });
                         return;
                     }
 
@@ -104,7 +114,12 @@ public class OgpView extends FrameLayout {
                         }
                     });
                 } catch (UnsupportedCharsetException | IOException e) {
-                    setVisibility(GONE);
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            setVisibility(GONE);
+                        }
+                    });
                     // todo: error handling
                 }
             }
