@@ -24,6 +24,8 @@ import okhttp3.Response;
 
 public class OgpView extends FrameLayout {
 
+    private Call call;
+
     private static OkHttpClient client = new OkHttpClient().newBuilder()
             .readTimeout(15 * 1000, TimeUnit.MILLISECONDS)
             .writeTimeout(20 * 1000, TimeUnit.MILLISECONDS)
@@ -69,7 +71,8 @@ public class OgpView extends FrameLayout {
                 .get()
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 post(new Runnable() {
@@ -125,5 +128,13 @@ public class OgpView extends FrameLayout {
             }
         });
 
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (call != null) {
+            call.cancel();
+        }
     }
 }
