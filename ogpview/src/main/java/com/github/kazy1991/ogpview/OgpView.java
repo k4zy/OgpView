@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -102,7 +103,7 @@ public class OgpView extends FrameLayout {
                             setVisibility(VISIBLE);
                         }
                     });
-                } catch (IOException e) {
+                } catch (UnsupportedCharsetException | IOException e) {
                     setVisibility(GONE);
                     // todo: error handling
                 }
